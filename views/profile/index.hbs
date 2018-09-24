@@ -1,0 +1,22 @@
+<h2>Hola {{username}}</h2>
+<img src="{{photoURL}}" alt="profile_picture" id="photo">
+
+<button>
+  <a href="/edit/{{_id}}">Edit profile</a>
+</button>
+
+<button>
+  <a href="/create_new">Crear notita nueva</a>
+</button>
+
+<button>
+  <a href='/login'>Logout</a>
+</button>
+
+<script>
+
+  document.getElementById('photo').addEventListener('click', () => {
+    window.location.href = "/edit_image"
+  })
+
+</script>
