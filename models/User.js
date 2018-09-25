@@ -7,6 +7,7 @@ const userSchema = new Schema({
   email: String,
   photoURL: String,
   confCode: String,
+  cash: Number,
   status: {
     type: String,
     enum:["Pending","Active"],
