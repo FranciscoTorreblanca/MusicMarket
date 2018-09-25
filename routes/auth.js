@@ -14,6 +14,11 @@ const isLogged = (req, res, next) => {
   else res.redirect('/login')
 }
 
+//indice
+router.get("/",(req,res,next)=>{
+  res.render("index")
+})
+
 
 //REGISTRO
 router.get('/signup', (req, res) => {
