@@ -1,7 +1,7 @@
 <h1>{{song}}</h1>
 <h2>{{artist}}</h2>
 <img src="{{imageURL}}" alt="">
-<p id="price-label">Price:</p>
+<p id="price-label">Price:{{price}}</p>
 <form  action="/stock/buy" method="post">
   <p>
     <input type="number" name="quantity" id="buy-quantity">

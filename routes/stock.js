@@ -2,57 +2,61 @@ const router      = require('express').Router()
 const Stock        = require('../models/Stock')
 const User        = require('../models/User')
 const spotifyApi = require('../helpers/spotify')
-
-require('../helpers/price.js')
+const Pricing = require('../helpers/price.js')
 
 router.get('/:id',(req,res,next)=>{
-  const {id} = req.params
-  var stock
-  spotifyApi.getTrack(id).then((r)=> 
-  {
-    stock = {
-      song: r.body.name,
-      artist: r.body.artists[0].name,
-      imageURL: r.body.album.images[1].url
-    }
-    res.render('stock/stock', stock)
-  }
-).catch((r)=>console.log(r))
+    const {id} = req.params
+    var stock
+    Pricing.calcPrice(id)
+      .then((pr)=>{
+        console.log("promise resolved" + pr)
+        spotifyApi.getTrack(id)
+        .then((r)=> {
+    
+          stock = {
+            song: r.body.name,
+            artist: r.body.artists[0].name,
+            imageURL: r.body.album.images[1].url,
+            price: pr
+          }
+          console.log(stock.price)
+          res.render('stock/stock', stock)
+        })
+        .catch((r)=>console.log(r))})
+      .catch(()=>console.log('Promise failed'))
 
- 
 })
 
-/*
-router.post('/buy/:id', (req, res, next) => {
+
+router.post('/:id', (req, res, next) => {
 
   const SpotID = req.params
   var dbStock;
-  price = calcPrice(SpotID) //from (../helpers/price.js)
+  // price = calcPrice(SpotID) //from (../helpers/price.js)
 
-  //hay un riesgo de que el precio cambie desde que el usuario 
-  //carga la página hasta que envía el request. 
-  //hay que pasar una variable en el post que sea el price paid
-  //y comparar con el calcPrice. Si cambió hay que devolver un error.
-  //el price paid no se puede usar directamente para también evitar 
-  //manipulacion por parte del usuario.
+  // //hay un riesgo de que el precio cambie desde que el usuario carga la página hasta que envía el request. hay que pasar una variable en el post que sea el price paid y comparar con el calcPrice. Si cambió hay que devolver un error. el price paid no se puede usar directamente para también evitar manipulacion por parte del usuario.
   
-  if(price !== req.body.price )
-    res.render('stock', {error: 'Price changed. Please try again'})
+  // if(price !== req.body.price )
+  //   res.render('stock', {error: 'Price changed. Please try again'})
 
   //create stock if does not exist yet, and save to variable
   Stock.findOne({SpotifyID: SpotID})
   .then((res)=>dbStock=res)
   .catch(
       ()=>{
-          var song = spotifyApi.getTracks(SpotID)
-          Stock.create({
-              name: song.name,
-              SpotifyID: SpotID,
-              price: price 
-          }).then((res)=>{dbStock=res})
+          console.log('didnt find song')
+          var song = spotifyApi.getTracks(SpotID).then(
+              Stock.create({
+                name: song.name,
+                SpotifyID: SpotID,
+                price: 100 //price 
+            }).then((res)=>{dbStock=res})
+          )
       }
   )
 
+
+  /*
   //create a new transaction with this user and this stock
     Transaction.create({
       user: req.User._id,
@@ -69,7 +73,7 @@ router.post('/buy/:id', (req, res, next) => {
   //show the user a success message on the same page 
   //and a link to his/her portfolio
     res.render('stock',{success=true})
-
-})*/
+    */
+})
 
 module.exports = router

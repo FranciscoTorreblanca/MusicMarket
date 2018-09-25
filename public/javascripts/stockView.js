@@ -6,7 +6,7 @@
     var bTotal=document.getElementById('buy-total')
     var sTotal=document.getElementById('sell-total')
 
-    pLabel.innerHTML=`Price:${price}`
+    // pLabel.innerHTML=`Price:${price}`
 
     sInput.addEventListener('input', function()
     {
