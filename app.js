@@ -71,7 +71,7 @@ const auth = require("./routes/auth")
 app.use("/",auth)
 
 const stock = require("./routes/stock")
-app.use("/",stock)
+app.use("/stock",stock)
 
 
 module.exports = app;

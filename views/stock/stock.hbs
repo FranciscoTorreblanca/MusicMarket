@@ -1,0 +1,23 @@
+<h1>{{song}}</h1>
+<h2>{{artist}}</h2>
+<img src="{{imageURL}}" alt="">
+<p id="price-label">Price:</p>
+<form  action="/stock/buy" method="post">
+  <p>
+    <input type="number" name="quantity" id="buy-quantity">
+  </p>
+  <p id='buy-total'>Total=0.00</p>
+  <input id="price" name="price" type="hidden" value="{{price}}">
+  <input type="submit" value="Buy">
+</form>
+
+<form action="/stock/sell" method="post">
+  <p>
+    <input type="number" name="quantity" id="sell-quantity">
+  </p>
+  <p id='sell-total'>Total=0.00</p>
+  <input id="price" name="price" type="hidden" value="{{price}}">
+  <input type="submit" value="Sell">
+</form>
+
+<script src="/javascripts/stockView.js"></script>
