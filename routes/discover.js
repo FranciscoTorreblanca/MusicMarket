@@ -21,7 +21,6 @@ router.get("/:genre",(req,res,next)=>{
   const {genre} = req.params
   spotifyApi.searchTracks(`genre:${genre}`)
   .then(tracks=>{
-    console.log(tracks.body.tracks.items)
     res.render("discover/genreDetail",{tracks:tracks.body.tracks.items ,genre})
   })
 })

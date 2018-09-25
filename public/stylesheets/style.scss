@@ -16,3 +16,14 @@ a {
   justify-content: center;
   align-items: center;
 }
+
+.photo{
+  width: 200px;
+  height: 200px;
+  transition: all 0.3s ease;
+}
+
+#photo:hover{
+  opacity: 0.5;
+  cursor: pointer;
+}

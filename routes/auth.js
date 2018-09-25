@@ -2,7 +2,10 @@ const router      = require('express').Router()
 const User        = require('../models/User')
 const passport    = require('passport')
 const uploadCloud = require('../helpers/cloudinary')
-const sendMail = require('../helpers/nodemailer').sendMail
+const sendMail    = require('../helpers/nodemailer').sendMail
+
+const Stock       = require("../models/Stock")
+const Transaction = require("../models/Transaction")
 
 //bcrypt
 const bcrypt = require("bcrypt");
@@ -77,12 +80,14 @@ router.post('/login', passport.authenticate('local'), (req, res, next) => {
 })
 
 
-//PERFIL??
+//PERFIL
 router.get('/profile', isLogged, (req, res) => {
   User.findById(req.app.locals.loggedUser._id)
   .then(usuario => {
-    console.log(usuario)
-    res.render('profile/profile', usuario) 
+    Transaction.find({user:usuario}).populate("stock")
+    .then(transactions=>{
+      res.render('profile/profile', {usuario,transactions}) 
+    })
   })
   .catch(e => console.log(e))
 })
@@ -111,17 +116,60 @@ router.post('/edit/:id', (req, res, next) => {
 })
 
 router.get('/edit_image', isLogged, (req, res) => {
-  res.render('profile/edit_image')
+  res.render('profile/edit_image',{photo:req.app.locals.loggedUser.photoURL})
 })
 
 router.post('/edit_image', isLogged, uploadCloud.single('photoURL'), (req, res, next) => {
   User.findByIdAndUpdate(req.app.locals.loggedUser._id, { photoURL: req.file.url }, { new: true })
   .then(user => {
     req.app.locals.loggedUser = user
-    console.log(user)
     res.redirect('/profile')
   })
   .catch(e => next(e))
+})
+
+router.get("/create_new_transaction_stock",(req,res,next)=>{
+  const newUser = new User({
+    username: 'johnny',
+    email: 'johnny@gmail',
+    password: 'asd1313f123a%$adsfafds1232131',
+    confirmationCode: 'asd1313f123a%$adsfafds1232131',
+    //status: 'Pending Confirmation'  >>>ommitted
+    photoURL: 'www.cloudinary.com/img123',
+    //cash: 200,000 >>>>ommitted
+
+  });
+  const newStock = new Stock({
+    name: 'I like it - Cardi B',
+    SpotifyID: '4S8d14HvHb70ImctNgVzQQ',
+    price: 25.74
+
+  });
+
+  newStock.save()
+  .then(()=>{
+    console.log('Success')
+  })
+  .catch((error)=>{
+    res.send(error)
+  })
+
+  const newTr = new Transaction({
+    user: "5baac1cd11b46c4b0f3e1653",
+    stock: newStock._id,
+    pricePaid: newStock.price,
+    quantity: 100,
+    type: 'Buy'
+  })
+
+  newTr.save()
+  .then(()=>{
+    console.log('Success')
+  })
+  .catch((error)=>{
+    res.send(error)
+  })
+
 })
 
 module.exports = router

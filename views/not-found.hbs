@@ -17,6 +17,9 @@ for (i = 0; i < 256; columns[i++] = 1);
 
 //executed once per frame
 function step() {
+    canvas.getContext('2d').fillStyle = '#fff';
+    canvas.getContext('2d').fillText("ERROR 404",canvas.width/2-50,canvas.height/2-16,200)
+    
     //Slightly darkens the entire canvas by drawing a mostly transparent black rectangle over the entire canvas
     //this explains both the initial flash from white to black (by default the canvas is white and progressively becomes black) as well as the fading of characters.
     canvas.getContext('2d').fillStyle = 'rgba(0,0,0,0.05)';
@@ -43,6 +46,5 @@ function step() {
     })
 }
 
-//1000/33 = ~30 times a second
 setInterval(step, 33)
 </script>

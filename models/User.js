@@ -5,9 +5,15 @@ const PLM      = require('passport-local-mongoose')
 const userSchema = new Schema({
   username: String,
   email: String,
-  photoURL: String,
+  photoURL: {
+    type: String,
+    default: "https://res.cloudinary.com/torreblanca/image/upload/v1537906945/prodigy/deafult.jpg"
+  },
   confCode: String,
-  cash: Number,
+  cash: {
+    type: Number,
+    default:200000
+  },
   status: {
     type: String,
     enum:["Pending","Active"],

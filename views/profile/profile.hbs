@@ -1,16 +1,28 @@
-<h2>Hola {{username}}</h2>
-<img src="{{photoURL}}" alt="profile_picture" id="photo">
+<h2>Hola {{usuario.username}}</h2>
+<div>
+  <img src="{{usuario.photoURL}}" alt="profile_picture" class="photo" id="photo">
 
-<button>
-  <a href="/edit/{{_id}}">Edit profile</a>
-</button>
+  <button>
+    <a href="/edit/{{usuario._id}}">Edit profile</a>
+  </button>
 
-<button>
-  <a href='/login'>Logout</a>
-</button>
+  <button>
+    <a href='/login'>Logout</a>
+  </button>
+</div>
+<div>
+  <p>Dinero restante: {{usuario.cash}}</p>
+</div>
+<div style="display:flex;flex-direction:column;">
+  <h3>Transacciones</h3>
+  {{#each transactions}}
+  <article>
+    {{this.stock.name}} -- {{this.pricePaid}} -- {{this.quantity}} -- {{this.type}}
+  </article>
+  {{/each}}
+</div>
 
-<script>
-
+  <script>
   document.getElementById('photo').addEventListener('click', () => {
     window.location.href = "/edit_image"
   })
