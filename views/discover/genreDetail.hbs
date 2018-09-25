@@ -1,0 +1,8 @@
+<h2>Listado en {{genre}}</h2>
+<div>
+  {{#each tracks}}
+  <p>
+    <a href="/stock/{{this.id}}">{{this.name}}</a>
+  </p>
+  {{/each}}
+</div>

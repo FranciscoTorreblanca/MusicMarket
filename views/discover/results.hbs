@@ -1,0 +1,10 @@
+<h2>Lista de descubrimiento</h2>
+<form action="/discover/results" method="POST">
+  <input type="text" name="searchTrack" id="searchTrack" value="{{search}}">
+</form>
+
+{{#each tracks}}
+<p>
+  <a href="/stock/{{this.id}}">  {{this.popularity}} -- {{this.name}} -- {{this.artists.[0].name}}  --  {{this.album.name}}</a>
+</p>
+{{/each}}

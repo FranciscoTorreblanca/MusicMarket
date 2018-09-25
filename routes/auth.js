@@ -1,6 +1,5 @@
 const router      = require('express').Router()
 const User        = require('../models/User')
-//falta modelo de usuarios
 const passport    = require('passport')
 const uploadCloud = require('../helpers/cloudinary')
 const sendMail = require('../helpers/nodemailer').sendMail
@@ -78,7 +77,7 @@ router.get('/profile', isLogged, (req, res) => {
   User.findById(req.app.locals.loggedUser._id)
   .then(usuario => {
     console.log(usuario)
-    res.render('profile/index', usuario) 
+    res.render('profile/profile', usuario) 
   })
   .catch(e => console.log(e))
 })
