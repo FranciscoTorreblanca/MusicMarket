@@ -1,16 +1,25 @@
 const router      = require('express').Router()
 const Stock        = require('../models/Stock')
 const User        = require('../models/User')
-//require('../helpers/price.js')
+const spotifyApi = require('../helpers/spotify')
+
+require('../helpers/price.js')
 
 router.get('/:id',(req,res,next)=>{
   const {id} = req.params
-  let stock = {
-    song: 'Money',
-    artist: 'Pink Floyd',
-    imageURL: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Money_1973.jpg/220px-Money_1973.jpg'
+  var stock
+  spotifyApi.getTrack(id).then((r)=> 
+  {
+    stock = {
+      song: r.body.name,
+      artist: r.body.artists[0].name,
+      imageURL: r.body.album.images[1].url
+    }
+    res.render('stock/stock', stock)
   }
-  res.render('stock/stock', stock)
+).catch((r)=>console.log(r))
+
+ 
 })
 
 /*

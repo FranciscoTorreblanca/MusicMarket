@@ -1,3 +1,3 @@
 exports.calcPrice = (id) => {
-  return 100;
+  return 120;
 }
