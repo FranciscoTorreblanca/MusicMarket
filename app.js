@@ -64,9 +64,10 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 
 //Rutas
-
 const auth = require("./routes/auth")
 app.use("/",auth)
 
+const discover = require("./routes/discover")
+app.use ("/discover", discover)
 
 module.exports = app;
