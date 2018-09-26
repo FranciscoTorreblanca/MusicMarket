@@ -6,7 +6,7 @@ const Transaction = require("../models/Transaction");
 
 
 /* GET home page */
-router.get('/new', (req, res, next) => {
+router.get('/', (req, res, next) => {
 
   const newUser = new User({
     username: 'johnny',
