@@ -67,7 +67,7 @@ app.locals.title = 'Express - Generated with IronGenerator';
 const auth = require("./routes/auth")
 app.use("/",auth)
 
-const stock = require("./routes/stock")
+const stock = require("./routes/async")
 app.use("/stock",stock)
 
 const discover = require("./routes/discover")

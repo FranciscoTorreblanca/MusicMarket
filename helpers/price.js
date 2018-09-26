@@ -5,7 +5,7 @@ exports.calcPrice = (id) => {
     spotifyApi.getTrack(id).then((r)=> 
     {
       console.log('popularity'+r.body.popularity)
-      resolve(r.body.popularity+10)
+      resolve(r.body.popularity)
     }
   ).catch((r)=>reject(r))
   });
