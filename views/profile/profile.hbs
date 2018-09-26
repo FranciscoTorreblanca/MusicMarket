@@ -17,7 +17,7 @@
   <h3>Transacciones</h3>
   {{#each transactions}}
   <article>
-    {{this.stock.name}} -- {{this.pricePaid}} -- {{this.quantity}} -- {{this.type}}
+     {{this.created_at}}--- {{this.stock.name}} -- {{this.pricePaid}} -- {{this.quantity}} -- {{this.type}}
   </article>
   {{/each}}
 </div>

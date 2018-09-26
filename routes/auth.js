@@ -128,48 +128,5 @@ router.post('/edit_image', isLogged, uploadCloud.single('photoURL'), (req, res, 
   .catch(e => next(e))
 })
 
-router.get("/create_new_transaction_stock",(req,res,next)=>{
-  const newUser = new User({
-    username: 'johnny',
-    email: 'johnny@gmail',
-    password: 'asd1313f123a%$adsfafds1232131',
-    confirmationCode: 'asd1313f123a%$adsfafds1232131',
-    //status: 'Pending Confirmation'  >>>ommitted
-    photoURL: 'www.cloudinary.com/img123',
-    //cash: 200,000 >>>>ommitted
-
-  });
-  const newStock = new Stock({
-    name: 'I like it - Cardi B',
-    SpotifyID: '4S8d14HvHb70ImctNgVzQQ',
-    price: 25.74
-
-  });
-
-  newStock.save()
-  .then(()=>{
-    console.log('Success')
-  })
-  .catch((error)=>{
-    res.send(error)
-  })
-
-  const newTr = new Transaction({
-    user: "5baac1cd11b46c4b0f3e1653",
-    stock: newStock._id,
-    pricePaid: newStock.price,
-    quantity: 100,
-    type: 'Buy'
-  })
-
-  newTr.save()
-  .then(()=>{
-    console.log('Success')
-  })
-  .catch((error)=>{
-    res.send(error)
-  })
-
-})
 
 module.exports = router
