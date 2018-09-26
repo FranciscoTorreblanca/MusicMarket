@@ -73,4 +73,7 @@ app.use("/stock",stock)
 const discover = require("./routes/discover")
 app.use ("/discover", discover)
 
+const test = require("./tests/modelsTest")
+app.use ("/new", test)
+
 module.exports = app;
