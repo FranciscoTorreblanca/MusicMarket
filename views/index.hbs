@@ -1,2 +1,232 @@
-<h1>Prodigy</h1>
-<p>Welcome to Prodigy</p>
+<section class="contenedor-inicio">
+  <div class="divs" id="indexDescription">
+    <div class="container">
+      <h2 class="title">
+        El mercado de acciones de tus canciones favoritas. 
+      </h2>
+      <p class="subtitle">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, est! Neque iste deleniti sint fuga ad, consectetur dicta velit corrupti illum facilis qui hic numquam placeat accusantium eveniet temporibus soluta?
+      </p>
+    </div>
+
+  </div>
+  <div class="cardIndex">
+    <div class="divs" id="indexForm">
+      <h3 style="font-size:1.5em">Registrarse: </h3>
+      <br>
+      <form action="/signup" method="post">
+      <div class="field">
+        <p class="control has-icons-left has-icons-right">
+          <input class="input" type="text" name="username" placeholder="Nombre de usuario">
+          <label for="username">Nombre de usuario </label>
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p class="control has-icons-left has-icons-right">
+          <input class="input" type="email" name="email" placeholder="Email">
+          <label for="email">Email</label>
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p class="control has-icons-left">
+          <input class="input" type="password" name="password" placeholder="Contraseña">
+          <label for="password">Contraseña</label>
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p class="control" style="left:60%">
+          <button class="button">
+            Registrarse
+          </button>
+        </p>
+      </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="seccion-grafica">
+    <svg id="svg" viewBox="0 0 800 800"> </svg>
+    <div id="index-description-2">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus perferendis eaque quas esse ut. Vero sapiente enim obcaecati officiis id porro distinctio illo fugit necessitatibus, nulla, optio quidem autem nemo.</p>
+    </div>
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
+
+<script>
+
+  var price = [0, -95, -30, -65, -35, -215, -95, -70, -115, -100, -200];
+
+  //CHART VALUES
+  var svgDiv = document.getElementById("svg")
+  var chartH = $('#svg').height();
+  var chartW = $('#svg').width();
+
+  var prices = [];
+  for (i = 0; i < price.length; i++) {
+    prices[i] = price[i] + $('#svg').height();
+  }
+
+  function draw() {
+    //DEFINE SNAP SVG AND DETERMINE STEP NO.
+    var paper = Snap('#svg');
+    var steps = prices.length;
+
+    // EVENLY DISTRIBUTE OUR POINTS ALONG THE X AXIS
+
+    function step(i, chartW) {
+      return chartW / prices.length * i;
+    }
+
+    var points = [];
+    var breakPointsX = [];
+    var breakPointsY = [];
+    var point = {};
+
+    for (i = 1; i < prices.length; i++) {
+
+      //CALCULATE CURRENT POINT
+
+      var currStep = step(i, chartW);
+      var y = prices[i];
+      point.x = Math.floor(currStep);
+      point.y = y;
+
+      //CALCULATE PREVIOUS POINT
+
+      var prev = i - 1;
+      var prevStep = step(prev, chartW);
+      var prevY = prices[prev];
+      point.prevX = Math.floor(prevStep);
+      point.prevY = prevY;
+      if (point.prevX === 0 || point.prevY === 0) {
+        point.prevX = 15;
+        point.prevY = chartH - 15;
+      }
+      // SAVE PATH TO ARRAY
+      points[i] = " M" + point.prevX + "," + point.prevY + " L" + point.x + "," + point.y;
+
+      // SAVE BREAKPOINTS POSITION
+
+      var r = 30;
+      breakPointsX[i] = point.x;
+      breakPointsY[i] = point.y;
+    }
+
+    // DRAW LINES
+
+    for (i = 0; i < points.length; i++) {
+      var myPath = paper.path(points[i]);
+      var len = myPath.getTotalLength();
+      myPath.attr({
+        'stroke-dasharray': len,
+        'stroke-dashoffset': len,
+        'stroke': '#643A71', //Color de las lineas
+        'stroke-linecap': 'round',
+        'stroke-width': 4,
+        'stroke-linejoin': 'round',
+        'id': 'myLine' + i,
+        'class': 'line'
+      });
+    }
+    // DRAW BREAKPOINTS
+    for (i = 0; i < points.length; i++) {
+      var circle = paper.circle(breakPointsX[i], breakPointsY[i], 5);
+      circle.attr({
+        'fill': '#643A71', //Color del cirulo 
+        'stroke': '#8B5FBF', //Color del contorno
+        'stroke-width': 3,
+        'id': 'myCirc' + i,
+        'class': 'breakpoint'
+      });
+    }
+    // DRAW COORDINATE SYSTEM
+    var xAxis = paper.path('M0,' + chartH + 'L' + chartW + "," + chartH);
+    var yAxis = paper.path('M0,' + chartH + 'L0,0');
+
+    var xOff = xAxis.getTotalLength();
+    var yOff = yAxis.getTotalLength();
+    var start = (prices.length * 250 + "ms");
+
+    yAxis.attr({
+      'stroke': '#643A71', //Color eje Y
+      'stroke-width': 1,
+      'stroke-dasharray': yOff,
+      'stroke-dashoffset': yOff,
+      'id': 'yAxis'
+    });
+    xAxis.attr({
+      'stroke': '#643A71', //Color eje X
+      'stroke-width': 1,
+      'stroke-dasharray': xOff,
+      'stroke-dashoffset': xOff,
+      'id': 'xAxis'
+    });
+    console.log(start);
+    $('#yAxis').css({
+      '-webkit-transition-delay': start,
+      '-webkit-transition': 'all 200ms ease-in'
+    });
+    $('#xAxis').css({
+      '-webkit-transition-delay': start,
+      '-webkit-transition': 'all 200ms ease-in'
+    });
+    $('#xAxis').animate({
+      'stroke-dashoffset': '0'
+    });
+    $('#yAxis').animate({
+      'stroke-dashoffset': '0'
+    });
+  }
+  function animate() {
+    for (i = 0; i < prices.length; i++) {
+      var circ = $('#myCirc' + i);
+      var line = $('#myLine' + i);
+      circ.css({
+        '-webkit-transition': 'all 550ms cubic-bezier(.84,0,.2,1)',
+        '-webkit-transition-delay': 375 + (i * 125) + "ms"
+      });
+      line.css({
+        '-webkit-transition': 'all 250ms cubic-bezier(.84,0,.2,1)',
+        '-webkit-transition-delay': i * 125 + "ms"
+      });
+      line.animate({
+        'stroke-dashoffset': 0
+      });
+      circ.css({
+        'transform': 'scale(1)'
+      });
+    }
+  }
+
+  var last_known_scroll_position = 0;
+  var ticking = false;
+
+  window.addEventListener('scroll', function (e) {
+    last_known_scroll_position = window.scrollY;
+    if (!ticking && last_known_scroll_position>=320) {
+      draw();
+      animate();
+    ticking = true;
+    }
+  });
+
+</script>

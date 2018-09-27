@@ -1,13 +1,17 @@
-<h2>Lista de descubrimiento</h2>
-<form action="/discover/results" method="POST">
-  <input type="text" name="searchTrack" id="searchTrack">
-</form>
-<div id="genresDiv">
+<section class="contenedor-paginas">
+  <h2>Lista de descubrimiento</h2>
+  <form action="/discover/results" method="POST">
+    <input type="text" name="searchTrack" id="searchTrack">
+  </form>
+  <div  id="genresDiv">
 
-{{#each genre}}
-<div style="width:20%">
-  <a href="/discover/{{this}}">{{this}} </a>
-</div>
-{{/each}}
+    {{#each genre}}
+    <a href="/discover/{{this}}">
+      <div class="card-genero">
+        {{this}}
+      </div>
+    </a>
+    {{/each}}
+  </div>
 
-</div>
+</section>
