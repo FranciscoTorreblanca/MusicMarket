@@ -4,16 +4,8 @@ body {
   left: 0;
   width: 100vw;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #1B2845;
 }
-
-a {
-  color: #00B7FF;
-}
-
-
-//Discover
-
-
 
 //profile
 .photo{
@@ -38,19 +30,19 @@ padding: 15px 10px;
 border-radius: 20px;
 margin:20px;
 background:#F79A7A;
-border:4px solid white;
+border:4px solid #CCDBDC;
 text-transform:uppercase;
 letter-spacing: 4px;
-color:white;
+color:#CCDBDC;
 }
 #draw:focus {
 outline:none;
 }
 #svg {
   top:50vh;
-  left:15vw;
-  width:50%;
-  height:50vh;
+  left:20vw;
+  width:70%;
+  height:70%;
   position:relative;
   -webkit-transform:translate3d(-50%,-50%,0);   
 }
@@ -67,7 +59,7 @@ position:absolute;
 transform:scale(1)
 }
 
-//-----------------Grafica-----------//
+//-----------------End Grafica-----------//
 
 
 #navbar{
@@ -102,6 +94,7 @@ transform:scale(1)
   background-repeat: none ;
 }
 
+
 .divs{
   padding: 20px;
 }
@@ -110,9 +103,10 @@ transform:scale(1)
   width: 50vw;
 }
 
-#indexDescription h1, #indexDescription p{
+#indexDescription h2, #indexDescription p{
+  width: 50%;
   color: white;
-  text-shadow: 2px 2px gray;
+  text-shadow: 2px 2px #1B2845;
 }
 
 #indexForm{
@@ -165,4 +159,12 @@ transform:scale(1)
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+
+.navbar-link:hover, a.navbar-item:hover{
+  background-color: #1B2845 !important; 
+}
+
+#seccion-grafica{
+  height: 80vh;
 }

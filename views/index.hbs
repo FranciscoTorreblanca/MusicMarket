@@ -1,11 +1,11 @@
 <section class="contenedor-inicio">
   <div class="divs" id="indexDescription">
     <div class="container">
-      <h1 class="title">
-        Prodigy
-      </h1>
+      <h2 class="title">
+        El mercado de acciones de tus canciones favoritas. 
+      </h2>
       <p class="subtitle">
-        El mercado de acciones de la música
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, est! Neque iste deleniti sint fuga ad, consectetur dicta velit corrupti illum facilis qui hic numquam placeat accusantium eveniet temporibus soluta?
       </p>
     </div>
 
@@ -14,6 +14,7 @@
     <div class="divs" id="indexForm">
       <h3 style="font-size:1.5em">Registrarse: </h3>
       <br>
+      <form action="/signup" method="post">
       <div class="field">
         <p class="control has-icons-left has-icons-right">
           <input class="input" type="text" name="username" placeholder="Nombre de usuario">
@@ -54,11 +55,12 @@
           </button>
         </p>
       </div>
+      </form>
     </div>
-  </di>
+  </div>
 </section>
 
-<section>
+<section id="seccion-grafica">
   <svg id="svg" viewBox="0 0 800 800"> </svg>
 </section>
 
@@ -134,7 +136,7 @@
       myPath.attr({
         'stroke-dasharray': len,
         'stroke-dashoffset': len,
-        'stroke': '#8A2BE2', //Color de las lineas
+        'stroke': '#643A71', //Color de las lineas
         'stroke-linecap': 'round',
         'stroke-width': 4,
         'stroke-linejoin': 'round',
@@ -146,8 +148,8 @@
     for (i = 0; i < points.length; i++) {
       var circle = paper.circle(breakPointsX[i], breakPointsY[i], 5);
       circle.attr({
-        'fill': '#800080', //Color del cirulo 
-        'stroke': '#BA55D3', //Color del contorno
+        'fill': '#643A71', //Color del cirulo 
+        'stroke': '#8B5FBF', //Color del contorno
         'stroke-width': 3,
         'id': 'myCirc' + i,
         'class': 'breakpoint'
@@ -162,14 +164,14 @@
     var start = (prices.length * 250 + "ms");
 
     yAxis.attr({
-      'stroke': '#8A2BE2', //Color eje Y
+      'stroke': '#643A71', //Color eje Y
       'stroke-width': 1,
       'stroke-dasharray': yOff,
       'stroke-dashoffset': yOff,
       'id': 'yAxis'
     });
     xAxis.attr({
-      'stroke': '#8A2BE2', //Color eje X
+      'stroke': '#643A71', //Color eje X
       'stroke-width': 1,
       'stroke-dasharray': xOff,
       'stroke-dashoffset': xOff,
@@ -211,21 +213,17 @@
       });
     }
   }
-  $(window).on("load", function () {
-    draw();
-    animate();
-  })
 
   var last_known_scroll_position = 0;
   var ticking = false;
 
   window.addEventListener('scroll', function (e) {
     last_known_scroll_position = window.scrollY;
-    if (!ticking) {
+    if (!ticking && last_known_scroll_position>=320) {
       draw();
       animate();
-    }
     ticking = true;
+    }
   });
 
 </script>

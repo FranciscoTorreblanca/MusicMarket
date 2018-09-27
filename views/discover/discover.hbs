@@ -6,9 +6,11 @@
 <div id="genresDiv">
 
 {{#each genre}}
+<a href="/discover/{{this}}">
 <div class="card-genero">
-  <a href="/discover/{{this}}">{{this}} </a>
+  {{this}} 
 </div>
+</a>
 {{/each}}
 </div>
 
