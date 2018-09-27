@@ -84,7 +84,10 @@ body {
   padding: 20px; }
 
 #indexDescription {
-  width: 50vw; }
+  width: 50vw;
+  margin-right: 5vw;
+  background-color: rgba(27, 40, 69, 0.5);
+  border-radius: 5%; }
 
 #indexDescription h2, #indexDescription p {
   width: 50%;
@@ -118,10 +121,40 @@ body {
   justify-content: center;
   width: 14vw;
   height: 10vh;
-  border: solid 3px #1B2845;
-  border-radius: 15%;
+  color: #CCDBDC;
+  border: solid 0px #1B2845;
+  border-radius: 10px;
   margin: 10px;
-  transition: all 0.3s ease; }
+  transition: all 0.3s ease;
+  background: linear-gradient(211deg, #643a71, #8b5fbf, #1b2845);
+  background-size: 600% 600%;
+  -webkit-animation: cardGradientAnim 22s ease infinite;
+  -moz-animation: cardGradientAnim 22s ease infinite;
+  animation: cardGradientAnim 22s ease infinite; }
+
+@-webkit-keyframes cardGradientAnim {
+  0% {
+    background-position: 0% 50%; }
+  50% {
+    background-position: 100% 51%; }
+  100% {
+    background-position: 0% 50%; } }
+
+@-moz-keyframes cardGradientAnim {
+  0% {
+    background-position: 0% 50%; }
+  50% {
+    background-position: 100% 51%; }
+  100% {
+    background-position: 0% 50%; } }
+
+@keyframes cardGradientAnim {
+  0% {
+    background-position: 0% 50%; }
+  50% {
+    background-position: 100% 51%; }
+  100% {
+    background-position: 0% 50%; } }
 
 .card-genero:hover {
   background-color: #CCDBDC; }
