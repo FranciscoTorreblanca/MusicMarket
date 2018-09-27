@@ -1,3 +1,4 @@
+<section class="contenedor-paginas">
 <h2>Hola {{usuario.username}}</h2>
 <div>
   <img src="{{usuario.photoURL}}" alt="profile_picture" class="photo" id="photo">
@@ -21,7 +22,7 @@
   </article>
   {{/each}}
 </div>
-
+</section>
   <script>
   document.getElementById('photo').addEventListener('click', () => {
     window.location.href = "/edit_image"

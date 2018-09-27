@@ -1,6 +1,8 @@
 body {
   margin: 0;
   padding: 0;
+  left: 0;
+  width: 100vw;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -10,13 +12,10 @@ a {
 
 
 //Discover
-#genresDiv{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
 
+
+
+//profile
 .photo{
   width: 200px;
   height: 200px;
@@ -26,4 +25,144 @@ a {
 #photo:hover{
   opacity: 0.5;
   cursor: pointer;
+}
+
+//-----------------Grafica-----------//
+#draw {
+cursor:pointer;
+left:0;
+position:absolute;
+top:0%;
+width:10%;
+padding: 15px 10px;
+border-radius: 20px;
+margin:20px;
+background:#F79A7A;
+border:4px solid white;
+text-transform:uppercase;
+letter-spacing: 4px;
+color:white;
+}
+#draw:focus {
+outline:none;
+}
+#svg {
+  top:50vh;
+  left:15vw;
+  width:50%;
+  height:50vh;
+  position:relative;
+  -webkit-transform:translate3d(-50%,-50%,0);   
+}
+.line {
+stroke-dashoffset:0;
+box-shadow: 10px 10px 1px black;
+}
+.breakpoint{
+transform:scale(0);
+position:absolute;
+-webkit-transform-origin:50% 50%;
+}
+.active{
+transform:scale(1)
+}
+
+//-----------------Grafica-----------//
+
+
+#navbar{
+  height: 10vh;
+  background: black;
+  border:  none ;
+  position: fixed;
+  width: 100vw;
+}
+
+#navbar div div a{
+  color: #CCDBDC ;
+}
+
+#portafolioLink{
+  color: #1B2845;
+}
+
+#imageLogo{ 
+  width: 5vw;
+}
+
+.contenedor-inicio{
+  color: white ;
+  display: flex;
+  flex-direction: row ;
+  justify-content: center ;
+  align-items: center;
+  height: 100vh;
+  background-image: url("https://res.cloudinary.com/torreblanca/image/upload/v1538018224/prodigy/Lading%20Page/mixer.jpg");
+  background-size: cover;
+  background-repeat: none ;
+}
+
+.divs{
+  padding: 20px;
+}
+
+#indexDescription{
+  width: 50vw;
+}
+
+#indexDescription h1, #indexDescription p{
+  color: white;
+  text-shadow: 2px 2px gray;
+}
+
+#indexForm{
+  width: 25vw;
+}
+
+.cardIndex{
+  color: #1B2845;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: #CCDBDC;
+  padding: 20px;
+  border-radius: 10%;
+  height: 60%;
+}
+
+::placeholder{
+  color: #1B2845 !important;
+  opacity: 0.5;
+}
+
+.contenedor-paginas{
+  position: absolute;
+  top: 10vh;
+}
+
+// Genero
+
+.card-genero{
+  display: flex;
+  align-items:  center;
+  justify-content: center;
+  width: 14vw;
+  height: 10vh;
+  border: solid 3px #1B2845;
+  border-radius: 15%;
+  margin: 10px;
+  transition: all 0.3s ease; 
+}
+
+.card-genero:hover{
+  background-color: #CCDBDC; 
+}
+
+#genresDiv{
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }

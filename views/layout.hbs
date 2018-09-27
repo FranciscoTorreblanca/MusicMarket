@@ -6,16 +6,48 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Prodigy</title>
   <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
 
-<nav style="display:flex; justify-content:space-around;">
-  <div>Logo</div>
-  <div><a href="/discover">Descubre</a></div>
-  <div><a href="/login">login</a></div>
-  <div><a href="/signup">Registrarse</a></div>
-  <div> <a href="/profile"> Mi portafolio </a></div>
-</nav>
+<div class="hero-head">
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a href="/" class="navbar-item">
+            <img id="imageLogo" src="https://res.cloudinary.com/torreblanca/image/upload/v1538020337/prodigy/Lading%20Page/Logo_TV_2015.png" alt="Logo">
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenuHeroA" class="navbar-menu">
+          <div class="navbar-end">
+            <a href="/discover" class="navbar-item is-active">
+              Descubre
+            </a>
+            <a href="/login" class="navbar-item">
+              Login
+            </a>
+            <a href="/signup" class="navbar-item">
+              Registrarse
+            </a>
+            <span class="navbar-item" >
+              <a href="/profile" class="button is-primary is-inverted" style="background-color:#CCDBDC">
+                <span class="icon" >
+             <i class="fas fa-user" style="color:black;"></i>
+                </span>
+                <span id="portafolioLink" >Mi portafolio</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
 
   {{{body}}}
 
