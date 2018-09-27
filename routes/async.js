@@ -12,7 +12,7 @@ const isLogged = (req, res, next) => {
 
 router.get('/:id',(req,res,next)=>{
     const {id} = req.params
-    var stock
+    var stock;
     Pricing.calcPrice(id)
       .then((pr)=>{
         console.log("promise resolved" + pr)
@@ -24,8 +24,11 @@ router.get('/:id',(req,res,next)=>{
             artist: r.body.artists[0].name,
             imageURL: r.body.album.images[1].url,
             price: pr,
-            url: id
+            url: id,
+            error:req.query.error,
+            message:req.query.message
           }
+          
           console.log(stock.price)
           res.render('stock/stock', stock)
         })
@@ -36,25 +39,29 @@ router.get('/:id',(req,res,next)=>{
 
 
 
-
-
 router.post('/:id', isLogged, async function (req, res, next) {
   console.log('entered post')
   const { id } = req.params
   var dbStock; 
 
+  if(req.body.quantity <= 0){
+    error = encodeURIComponent('Please enter a valid quantity, greater than zero')
+    res.redirect(`/stock/${id}/?error=${error}`)
+    //res.render('stock/stock', {error: 'Please enter a valid quantity, greater than zero'})
+    return;
+  }
+
   try {
     var price = await Pricing.calcPrice(id)
   }catch(err){console.log(err); return;}
 
-  //TODO: Check that user has enough money to buy
-  //TODO: Check that user owns the stock that he wants to sell
 
   // hay un riesgo de que el precio cambie desde que el usuario carga la página hasta que envía el request. Hay que pasar una variable en el post llamada price  y calcular si es igual al precio actual. Esto previene manipulación del usuario y también protege contra cambios en el precio.
   console.log('Current price:' + price)
   console.log('Price submitted:' + req.body.price)
   if(price != req.body.price ){
-    res.render('stock/stock', {error: 'Price changed. Please try again'})
+    error = encodeURIComponent('Price changed. Please try again')
+    res.redirect(`/stock/${id}/?error=${error}`)
     return;
   }
   //create stock if does not exist yet, and save to variable
@@ -92,11 +99,44 @@ router.post('/:id', isLogged, async function (req, res, next) {
   else {
     console.log("Found an existing song: " + dbStock)
   }
+    //Check that user owns the stock that he wants to sell
+    if(req.body.type == 'Sell'){
+      console.log('Sell transaction')
+        var trs = await Transaction.find({$and: [{user: req.user._id}, {stock: dbStock._id}]})
+        console.log(trs)
+        if(trs==null){
+          error = encodeURIComponent('You dont own this stock. Do you wish to buy it instead?.')
+          res.redirect(`/stock/${id}/?error=${error}`)
+          return;
+        }else {
+          var sharesOwned=0;
+          for (tr of trs){
+            if(tr.type == 'Buy')
+             sharesOwned += tr.quantity;
+            else 
+             sharesOwned -= tr.quantity;
+          }
+          if(sharesOwned<req.body.quantity){
+            error = encodeURIComponent('You dont own enough shares of this stock. Please change your quantity to Sell and try again.')
+            res.redirect(`/stock/${id}/?error=${error}`)
+            return; 
+          }
+        }
+    }
+
+    //Check that user has enough money to buy
+    if(req.body.type == 'Buy') {
+      if(!((req.app.locals.loggedUser.cash-price*req.body.quantity)>0)) {
+        error = encodeURIComponent('Not enough cash in account. Please try selling some stock or change amount')
+        res.redirect(`/stock/${id}/?error=${error}`)
+        return;
+      }
+  }
 
   //create a new transaction with this user and this stock
   try{
     var newTr = await Transaction.create({
-      user: req.user.id,
+      user: req.user._id,
       stock: dbStock._id,
       pricePaid: price,  
       quantity: req.body.quantity,//va a variar si es sell o buy route
@@ -105,17 +145,33 @@ router.post('/:id', isLogged, async function (req, res, next) {
   }catch(err){console.log(err); return}
   console.log('New Transaction created' + newTr)
 
-  /*
 
-  //if buy debit money from the user's cash 
-      User.findById(req.User._id).then((usr)=>
-        User.findByIdAndUpdate(req.User._id,{cash:usr.cash-price*req.body.quantity})
-      )
-  //if sell creadit money to the user's cash
+  //if buy transaction, then debit money from the user's cash 
+    if(newTr.type == 'Buy') {
+      User.findById(newTr.user)
+      .then((usr)=>{
+        if(usr!=null)
+         User.findByIdAndUpdate(usr,{cash:usr.cash-newTr.pricePaid*newTr.quantity})
+         .then(()=>req.app.locals.loggedUser = usr)
+         .catch((err)=>{console.log(err);return})
+      }).catch((err)=>{console.log(err);return})
+    }
+  //if sell credit money to the user's cash
+  if(newTr.type == 'Sell') {
+   
+    //credit money to the users acct
+    User.findById(newTr.user)
+    .then((usr)=>{
+      if(usr!=null)
+       User.findByIdAndUpdate(usr,{cash:usr.cash+newTr.pricePaid*newTr.quantity})
+       .then(()=>req.app.locals.loggedUser = usr)
+       .catch((err)=>{console.log(err);return})
+    }).catch((err)=>{console.log(err);return})
+  }
   //show the user a success message on the same page and a link to his/her portfolio
-*/
-     res.render('stock/stock', {message: 'Success! Your transaction was confirmed'})
-
+  message = encodeURIComponent('Success! Your transaction was confirmed')
+  res.redirect(`/stock/${id}/?message=${message}`)
+  
 })
 
 module.exports = router
