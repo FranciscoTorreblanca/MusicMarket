@@ -184,6 +184,7 @@ animation: cardGradientAnim 22s ease infinite;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+
 }
 
 .navbar-link:hover, a.navbar-item:hover{
@@ -215,4 +216,90 @@ footer a{
 
 footer a:hover{
   color: #8B5FBF;
+}
+
+/* border-box */
+.search-container *,
+.search-container *:after,
+.search-container *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.search-container{
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+.search-container:hover{
+  width: 150px;
+  margin-right: 50%;  
+}
+
+/* search bar focus */
+.search-container *:focus {
+  background: #CCDBDC;
+  color: #333333;
+  outline: 0;
+}
+
+/* search bar container */
+.search-container {
+  display: table;
+  position: relative;
+  width: 51px;
+}
+
+/* search icon button */
+.search-icon-btn {
+  background-color: #CCDBDC;
+  border: 1px solid #643A71;
+  border-radius: 50%;
+  display: table-cell;
+  height: 50px;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 50px;
+  z-index: 2;
+}
+
+/* search bar input container */
+.search-input {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+}
+/* search bar input */
+.search-input input.search-bar {
+  background-color: #CCDBDC;
+  border: 1px solid #CCDBDC;
+  height: 50px;
+  padding: 0px;
+  width: 50px;
+}
+.search-input input.search-bar:focus {
+  padding-left: 60px;
+  padding-right: 10px;
+  width: 200px;
+}
+
+/* transition effect */
+.search-input input.search-bar,
+.search-icon-btn {
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+/* hover on search bar container */
+.search-container:hover > .search-input input.search-bar {
+  background-color: #fff;
+  margin-left: 60px;
+  padding-left: 20px;
+  padding-right: 10px;
+  width: 200px;
 }
