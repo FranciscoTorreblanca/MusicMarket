@@ -1,14 +1,16 @@
-<section class="contenedor-paginas">
-<h2>Sube tu imagen de perfil:</h2>
-<img src="{{photo}}" alt="profile photo" class="photo">
-<form action="/edit_image" method="post" enctype="multipart/form-data">
-  <input type="file" name="photoURL" id="inputPhoto" required>
-  <input type="submit" value="Sube tu foto">
-</form>
+<section class="contenedor-paginas" style="height:70vh; padding-top:15vh;">
+  <div class="container has-text-centered" style="display:flex; flex-direction:column; justify-content:center; align-items: center;">
+    <h2 class="title">Sube tu imagen de perfil:</h2>
+    <img src="{{photo}}" alt="profile photo" class="photo">
+    <form action="/edit_image" method="post" enctype="multipart/form-data">
+      <input type="file" name="photoURL" id="inputPhoto" required>
+      <input type="submit" value="Sube tu foto">
+    </form>
+  </div>
 </section>
 
 <script>
-  document.getElementById("inputPhoto").addEventListener("change",(e)=>{
+  document.getElementById("inputPhoto").addEventListener("change", (e) => {
     console.log(document.getElementById("inputPhoto").files[0])
     document.getElementsByClassName("photo")[0].src = URL.createObjectURL(e.target.files[0])
     //document.getElementsByClassName("photo")[0].src = document.getElementById("inputPhoto").value
