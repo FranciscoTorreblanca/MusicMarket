@@ -1,29 +1,74 @@
 <section class="contenedor-paginas">
-<h2>Hola {{usuario.username}}</h2>
-<div>
-  <img src="{{usuario.photoURL}}" alt="profile_picture" class="photo" id="photo">
+  <h2>Hola {{usuario.username}}</h2>
+  <div style="display:flex">
+    <img src="{{usuario.photoURL}}" alt="profile_picture" class="photo" id="photo">
+    <div style="width:30vw;">
+      <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+    <button>
+      <a href="/edit/{{usuario._id}}">Edit profile</a>
+    </button>
 
-  <button>
-    <a href="/edit/{{usuario._id}}">Edit profile</a>
-  </button>
+    <button>
+      <a href='/login'>Logout</a>
+    </button>
+  </div>
 
-  <button>
-    <a href='/login'>Logout</a>
-  </button>
-</div>
-<div>
-  <p>Dinero restante: {{usuario.cash}}</p>
-</div>
-<div style="display:flex;flex-direction:column;">
-  <h3>Transacciones</h3>
-  {{#each transactions}}
-  <article>
-     {{this.created_at}}--- {{this.stock.name}} -- {{this.pricePaid}} -- {{this.quantity}} -- {{this.type}}
-  </article>
-  {{/each}}
-</div>
+<aside style="display:none" id="tipoDeTrans">{{graphArrays.tipoDeTrans}}</aside>
+<aside style="display:none" id="dinero">{{graphArrays.dinero}}</aside>
+
+  <div>
+    <p>Dinero restante: {{usuario.cash}}</p>
+  </div>
+
+  <div style="display:flex;flex-direction:column;">
+    <h3>Transacciones</h3>
+    {{#each transactions}}
+    <article>
+      <a href="/stock/{{this.stock.SpotifyID}}">
+        {{this.time}}--- {{this.stock.name}} -- {{this.pricePaid}} -- {{this.quantity}} -- {{this.type}}
+      </a>
+    </article>
+    {{/each}}
+  </div>
 </section>
-  <script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<script>
+  var ltipo = document.getElementById("tipoDeTrans").innerHTML.split(",")
+  var ldinero = document.getElementById("dinero").innerHTML.split(",")
+  console.log(ltipo)
+  console.log(ldinero)
+  var ctx = document.getElementById("myChart");
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ltipo,
+      datasets: [{
+        label: 'cash',
+        data: ldinero,
+        backgroundColor: [
+          'rgba(100, 58, 113, 0.2)'
+        ],
+        borderColor: [
+          '#8B5FBF',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+</script>
+
+<script>
   document.getElementById('photo').addEventListener('click', () => {
     window.location.href = "/edit_image"
   })
