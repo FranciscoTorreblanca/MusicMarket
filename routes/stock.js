@@ -18,7 +18,7 @@ router.get('/:id',(req,res,next)=>{
         console.log("promise resolved" + pr)
         spotifyApi.getTrack(id)
         .then((r)=> {
-    
+        
           stock = {
             song: r.body.name,
             artist: r.body.artists[0].name,
@@ -26,7 +26,8 @@ router.get('/:id',(req,res,next)=>{
             price: pr,
             url: id,
             error:req.query.error,
-            message:req.query.message
+            message:req.query.message,
+            audiourl: r.body.preview_url
           }
           
           console.log(stock.price)

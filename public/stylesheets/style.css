@@ -191,4 +191,94 @@ footer a {
 footer a:hover {
   color: #8B5FBF; }
 
+#detail * {
+  margin: 0px;
+  padding: 0px; }
+
+#detail h1 {
+  margin-left: 50px;
+  margin-top: 20px;
+  font-size: 40px;
+  color: black; }
+
+#detail h2 {
+  margin-left: 50px;
+  margin-top: 10px;
+  font-size: 30px;
+  color: #4e4e4e; }
+
+#detail > img {
+  margin-left: 50px; }
+
+#detail > #top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 50px; }
+
+#detail p {
+  font-size: 30px;
+  font-color: black; }
+
+#detail input {
+  height: 35px;
+  font-size: 30px;
+  width: 200px;
+  border-radius: 5px; }
+
+#detail input[type='submit'] {
+  height: 35px;
+  font-size: 30px;
+  width: 120px;
+  border-radius: 5px; }
+
+#detail #price-container {
+  font-size: 45px;
+  color: #081084;
+  margin-right: 80px; }
+
+.buymodal {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px !important;
+  max-width: 300px;
+  border-radius: 5px; }
+
+#detail .btn-trade {
+  min-width: 150px;
+  background-color: #750d82;
+  font-size: 30px;
+  margin: 5px; }
+
+#detail #side-panel {
+  display: flex;
+  align-items: center; }
+
+#detail audio {
+  height: 60px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  min-width: 250px;
+  display: block; }
+
+#results a:hover {
+  opacity: 0.4; }
+
+#results a {
+  max-width: 600px;
+  margin-left: 30%;
+  color: black;
+  font-size: 25px; }
+
+.res-price {
+  color: #530b80;
+  font-size: 20px; }
+
+.res-name {
+  color: grey;
+  font-size: 25px; }
+
 /*# sourceMappingURL=style.css.map */

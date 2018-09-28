@@ -12,6 +12,10 @@ router.post("/results",(req,res,next)=>{
   const {searchTrack} = req.body
   spotifyApi.searchTracks(searchTrack)
     .then(tracks=>{
+      for(tr of tracks.body.tracks.items){
+        if(tr.name.length > 40 )
+          tr.name = tr.name.substring(0,40)
+      }
       res.render("discover/results",{tracks:tracks.body.tracks.items,search:searchTrack})
     })
     .catch(e=>console.log(e))

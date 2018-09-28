@@ -1,29 +1,64 @@
-<section class="contenedor-paginas">
-<h1>{{song}}</h1>
-<h2>{{artist}}</h2>
-<h2 style="color:red;">{{error}}</h2>
-<h2 style="color: green;">{{message}}</h2>
-<img src="{{imageURL}}" alt="">
-<p>Price:<span id="price-label">{{price}}</span></p>
-<form  action="/stock/{{url}}" method="POST">
-  <p>
-    <input type="number" name="quantity" id="buy-quantity">
-  </p>
-  <p id='buy-total'>Total=0.00</p>
-  <input id="price" name="price" type="hidden" value="{{price}}">
-  <input id="type" name="type" type="hidden" value="Buy">
-  <input type="submit" value="Buy">
-</form>
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <!-- Any other Bulma elements you want -->
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
 
-<form action="/stock/{{url}}" method="POST">
-  <p>
-    <input type="number" name="quantity" id="sell-quantity">
-  </p>
-  <p id='sell-total'>Total=0.00</p>
-  <input id="price" name="price" type="hidden" value="{{price}}">
-  <input id="type" name="type" type="hidden" value="Sell">
-  <input type="submit" value="Sell">
-</form>
+<section class="contenedor-paginas">
+  <div id="detail">
+    <h2 style="color:red;font-size:20px;">{{error}}</h2>
+    <h3 style="color: green;font-size:25px;">{{message}}</h3>
+    <h1>{{song}}</h1>
+    <h2>{{artist}}</h2>
+
+    <section id="top">
+      <div>
+        <img src="{{imageURL}}" alt="">
+        <audio controls>
+          <source src="{{audiourl}}" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
+      <div id="side-panel">
+
+        <span id="price-container">Price:<span id="price-label">{{price}}</span></span>
+
+        <div style="display: inline-block">
+        <button class="button btn-trade is-success toggle-modal">Buy</button>
+        <button class="button btn-trade is-success toggle-modal">Sell</button>
+        </div>
+      </div>
+      <aside id="trade-form" class="modal">
+        <div class="modal-background toggle-modal"></div>
+        <div class="modal-content buymodal">
+        <form action="/stock/{{url}}"  method="POST">
+          <p>
+            <input type="number" name="quantity" id="buy-quantity">
+          </p>
+          <p id='buy-total'>Total 0.00</p>
+          <input id="price" name="price" type="hidden" value="{{price}}">
+          <input id="type" name="type" type="hidden" value="Buy">
+          <input type="submit" value="Buy">
+        </form>
+
+        <form action="/stock/{{url}}" method="POST">
+          <p>
+            <input type="number" name="quantity" id="sell-quantity">
+          </p>
+          <p id='sell-total'>Total 0.00</p>
+          <input id="price" name="price" type="hidden" value="{{price}}">
+          <input id="type" name="type" type="hidden" value="Sell">
+          <input type="submit" value="Sell">
+        </form>
+        <button class="modal-close is-large toggle-modal" aria-label="close"></button>
+        </div>
+      </aside>
+       </section>
+   
+  </div>
 </section>
 
 <script src="/javascripts/stockView.js"></script>

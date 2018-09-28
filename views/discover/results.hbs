@@ -4,9 +4,14 @@
   <input type="text" name="searchTrack" id="searchTrack" value="{{search}}">
 </form>
 
+<div id="results">
 {{#each tracks}}
 <p>
-  <a href="/stock/{{this.id}}">  {{this.popularity}} -- {{this.name}} -- {{this.artists.[0].name}}  --  {{this.album.name}}</a>
+  <a href="/stock/{{this.id}}">  
+      <span class='res-price'>${{this.popularity}}</span>
+      <span class='res-artist'>{{this.artists.[0].name}} </span>
+      <span class='res-name' >{{this.name}}</span> </a>
 </p>
 {{/each}}
 </section>
+</div>
