@@ -3,6 +3,7 @@ const User        = require('../models/User')
 const passport    = require('passport')
 const uploadCloud = require('../helpers/cloudinary')
 const sendMail    = require('../helpers/nodemailer').sendMail
+const moment      = require("moment")
 
 const Stock       = require("../models/Stock")
 const Transaction = require("../models/Transaction")
@@ -86,7 +87,30 @@ router.get('/profile', isLogged, (req, res) => {
   .then(usuario => {
     Transaction.find({user:usuario}).populate("stock")
     .then(transactions=>{
-      res.render('profile/profile', {usuario,transactions}) 
+      var cashInv= {invertido:0}
+      var graphArrays={
+        tipoDeTrans: ["start"],
+        dinero : [200000]
+      }
+      let cash = 200000 
+      for (t of transactions){
+        let time = moment(t.created_at).format("MMM D YYYY")
+        t["time"] = time
+        
+        if(t.type == "Buy"){
+          cash -=( t.pricePaid*t.quantity)
+          cashInv.invertido +=( t.pricePaid*t.quantity)
+          graphArrays.tipoDeTrans.push(t.type)
+          graphArrays.dinero.push(cash)
+        }else{
+          cash +=( t.pricePaid*t.quantity)
+          cashInv.invertido -=( t.pricePaid*t.quantity)
+          graphArrays.tipoDeTrans.push(t.type)
+          graphArrays.dinero.push(cash)
+        }
+      }
+      console.log(graphArrays)
+      res.render('profile/profile', {usuario,transactions,graphArrays, cashInv}) 
     })
   })
   .catch(e => console.log(e))

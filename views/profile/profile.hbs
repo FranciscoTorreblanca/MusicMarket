@@ -1,29 +1,91 @@
-<section class="contenedor-paginas">
-<h2>Hola {{usuario.username}}</h2>
-<div>
-  <img src="{{usuario.photoURL}}" alt="profile_picture" class="photo" id="photo">
+<section class="contenedor-paginas" style="padding-top:15vh;">
+  <div style="display:flex; justify-content:space-around">
+    <article>
+      <img src="{{usuario.photoURL}}" alt="profile_picture" class="photo" id="photo">
+      <h2 class="titleProfile" id="profileTitle">{{usuario.username}}</h2>
+      <div id="botones-profile">
+        <button>
+          <a href="/edit/{{usuario._id}}">Edit profile</a>
+        </button>
 
-  <button>
-    <a href="/edit/{{usuario._id}}">Edit profile</a>
-  </button>
+        <button>
+          <a href='/login'>Logout</a>
+        </button>
+      </div>
+    </article>
 
-  <button>
-    <a href='/login'>Logout</a>
-  </button>
-</div>
-<div>
-  <p>Dinero restante: {{usuario.cash}}</p>
-</div>
-<div style="display:flex;flex-direction:column;">
-  <h3>Transacciones</h3>
-  {{#each transactions}}
-  <article>
-     {{this.created_at}}--- {{this.stock.name}} -- {{this.pricePaid}} -- {{this.quantity}} -- {{this.type}}
+    <article id="contenedor-grafica">
+      <div class="dinero-profile">
+        <p> <strong> Dinero disponible: {{usuario.cash}} </strong></p>
+        <p> <strong> Dinero invertido: {{cashInv.invertido}} </strong></p>
+      </div>
+
+      <div style="width:32vw;">
+        <canvas id="myChart" width="400" height="270"></canvas>
+      </div>
+  </div>
   </article>
-  {{/each}}
-</div>
+  <aside style="display:none" id="tipoDeTrans">{{graphArrays.tipoDeTrans}}</aside>
+  <aside style="display:none" id="dinero">{{graphArrays.dinero}}</aside>
+
+
+  <div class="container has-text-centered" style="display:flex;flex-direction:column;">
+    <h3 class="titleProfile" style="margin-top:30px;">Transacciones</h3>
+    {{#each transactions}}
+    <article class="transaction-container" style="font-size:1.2em;">
+      <a href="/stock/{{this.stock.SpotifyID}}" class="columns">
+        <span class="transaction-time column">{{this.time}}</span>  <span class="transaction-name column is-half">{{this.stock.name}} </span>  <span class="transaction-price-paid column"> {{this.pricePaid}} </span>  <span class="transaction-quantity column"> {{this.quantity}} </span>  <span class="transaction-type-{{this.type}} column"> {{this.type}} </span>
+      </a>
+    </article>
+    {{/each}}
+  </div>
 </section>
-  <script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<script>
+  var ltipo = document.getElementById("tipoDeTrans").innerHTML.split(",")
+  var ldinero = document.getElementById("dinero").innerHTML.split(",")
+  var ctx = document.getElementById("myChart");
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ltipo,
+      datasets: [{
+        label: 'cash',
+        data: ldinero,
+        backgroundColor: [
+          '#8B5FBF'
+        ],
+        borderColor: [
+          '#8B5FBF',
+        ],
+        pointBackgroundColor: "#AB10BD"
+        ,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      legend: {
+        display: false
+    },
+      elements: { point: { radius: 0 } },
+      scales: {
+        xAxes:[{
+          ticks:{
+            display:false
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+</script>
+
+<script>
   document.getElementById('photo').addEventListener('click', () => {
     window.location.href = "/edit_image"
   })
