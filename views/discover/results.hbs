@@ -6,18 +6,12 @@
 
 <div id="results">
 {{#each tracks}}
-<<<<<<< HEAD
 <p>
   <a href="/stock/{{this.id}}">  
       <span class='res-price'>${{this.popularity}}</span>
       <span class='res-artist'>{{this.artists.[0].name}} </span>
       <span class='res-name' >{{this.name}}</span> </a>
 </p>
-=======
-<div class="cancion-resultado">
-  <a href="/stock/{{this.id}}">  {{this.popularity}} -- {{this.name}} -- {{this.artists.[0].name}}  --  {{this.album.name}}</a>
-</div>
->>>>>>> origin/Front
 {{/each}}
 </section>
 </div>

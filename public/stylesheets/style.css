@@ -182,7 +182,6 @@ footer a {
 footer a:hover {
   color: #8B5FBF; }
 
-<<<<<<< HEAD
 #detail * {
   margin: 0px;
   padding: 0px; }
@@ -211,7 +210,7 @@ footer a:hover {
 
 #detail p {
   font-size: 30px;
-  font-color: black; }
+  color: black; }
 
 #detail input {
   height: 35px;
@@ -272,7 +271,7 @@ footer a:hover {
 .res-name {
   color: grey;
   font-size: 25px; }
-=======
+
 /* border-box */
 .search-container *,
 .search-container *:after,
@@ -412,6 +411,5 @@ footer a:hover {
 .titleProfile {
   font-size: 2.0em;
   color: black; }
->>>>>>> origin/Front
 
 /*# sourceMappingURL=style.css.map */
