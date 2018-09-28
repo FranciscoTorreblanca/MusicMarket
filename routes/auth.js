@@ -87,27 +87,30 @@ router.get('/profile', isLogged, (req, res) => {
   .then(usuario => {
     Transaction.find({user:usuario}).populate("stock")
     .then(transactions=>{
+      var cashInv= {invertido:0}
       var graphArrays={
         tipoDeTrans: ["start"],
         dinero : [200000]
       }
       let cash = 200000 
       for (t of transactions){
-        let time = moment(t.created_at).format("LL")
+        let time = moment(t.created_at).format("MMM D YYYY")
         t["time"] = time
         
         if(t.type == "Buy"){
           cash -=( t.pricePaid*t.quantity)
+          cashInv.invertido +=( t.pricePaid*t.quantity)
           graphArrays.tipoDeTrans.push(t.type)
           graphArrays.dinero.push(cash)
         }else{
           cash +=( t.pricePaid*t.quantity)
+          cashInv.invertido -=( t.pricePaid*t.quantity)
           graphArrays.tipoDeTrans.push(t.type)
           graphArrays.dinero.push(cash)
         }
       }
       console.log(graphArrays)
-      res.render('profile/profile', {usuario,transactions,graphArrays}) 
+      res.render('profile/profile', {usuario,transactions,graphArrays, cashInv}) 
     })
   })
   .catch(e => console.log(e))

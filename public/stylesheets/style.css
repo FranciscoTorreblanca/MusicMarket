@@ -6,15 +6,6 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #CCDBDC; }
 
-.photo {
-  width: 200px;
-  height: 200px;
-  transition: all 0.3s ease; }
-
-#photo:hover {
-  opacity: 0.5;
-  cursor: pointer; }
-
 #draw {
   cursor: pointer;
   left: 0;
@@ -128,9 +119,9 @@ body {
   transition: all 0.3s ease;
   background: linear-gradient(211deg, #643a71, #8b5fbf, #1b2845);
   background-size: 600% 600%;
-  -webkit-animation: cardGradientAnim 22s ease infinite;
-  -moz-animation: cardGradientAnim 22s ease infinite;
-  animation: cardGradientAnim 22s ease infinite; }
+  -webkit-animation: cardGradientAnim 5s ease infinite;
+  -moz-animation: cardGradientAnim 5s ease infinite;
+  animation: cardGradientAnim 5s ease infinite; }
 
 @-webkit-keyframes cardGradientAnim {
   0% {
@@ -268,5 +259,67 @@ footer a:hover {
   padding-left: 20px;
   padding-right: 10px;
   width: 200px; }
+
+.contenedor-paginas button {
+  padding: 10px;
+  border-radius: 5px;
+  height: 60px;
+  min-width: 150px;
+  background-color: #ab10bd;
+  font-size: 22px;
+  margin: 5px; }
+
+#botones-profile {
+  padding-left: 5vw; }
+
+#contenedor-grafica {
+  width: 50vw; }
+
+.contenedor-paginas button a {
+  color: #CCDBDC; }
+
+.photo {
+  width: 200px;
+  height: 200px;
+  transition: all 0.3s ease;
+  margin-left: 10vw;
+  border-radius: 50%; }
+
+#photo:hover {
+  opacity: 0.5;
+  cursor: pointer; }
+
+#profileTitle {
+  margin-left: 10vh; }
+
+.dinero-profile {
+  text-align: center;
+  margin-right: 30%;
+  font-size: 1.5em; }
+
+.transaction-time {
+  color: #95A0A1; }
+
+.transaction-name {
+  color: black; }
+
+.transaction-price-paid {
+  color: #530b80; }
+
+.transaction-quantity {
+  color: #8B5FBF; }
+
+.transaction-type-Buy {
+  color: #65AFFF; }
+
+.transaction-type-Sell {
+  color: #AB10BD; }
+
+.transaction-container:hover {
+  opacity: 0.4; }
+
+.titleProfile {
+  font-size: 2.0em;
+  color: black; }
 
 /*# sourceMappingURL=style.css.map */

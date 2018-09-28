@@ -5,8 +5,8 @@
 </form>
 
 {{#each tracks}}
-<p>
+<div class="cancion-resultado">
   <a href="/stock/{{this.id}}">  {{this.popularity}} -- {{this.name}} -- {{this.artists.[0].name}}  --  {{this.album.name}}</a>
-</p>
+</div>
 {{/each}}
 </section>
